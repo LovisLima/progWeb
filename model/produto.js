@@ -8,7 +8,7 @@ const Produto = db.sequelize.define('produto', {
     estoque:{type: db.Sequelize.STRING},
 });
 
-Cliente.sync();
+Produto.sync();
 //Cliente.create({nome:'maria',email:'maria@norton.net.bt',senha:'345345'});
 
 module.exports = Produto;
