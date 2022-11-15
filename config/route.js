@@ -92,9 +92,10 @@ router.post("/produto", function (req, res) {
 
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
   Produto.create({
-      nome: req.body.nome,
-      email: req.body.email,
-      senha: req.body.senha}).then(
+      titulo: req.body.nome,
+      valor: req.body.email,
+      descritivo: req.body.senha,
+      estoque:req.body.estoque}).then(
           function(){
             res.send("produto criado com sucesso !!!"+ req.body.nome);
           }).catch(
@@ -106,9 +107,10 @@ router.post("/produto", function (req, res) {
 
 router.put("/produto/:id", function (req, res) { 
   Produto.update({
-    nome: req.body.nome,
-    email: req.body.email,
-    senha: req.body.senha},
+      titulo: req.body.nome,
+      valor: req.body.email,
+      descritivo: req.body.senha,
+      estoque:req.body.estoque},
     {
       where: {id: req.params.id}
     }).then(
