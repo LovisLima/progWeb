@@ -1,8 +1,16 @@
 const db = require('./db')
 
-const Produto = db.sequelize.define('produto', {  
-    titulo: {type: db.Sequelize.STRING},
-    valor: {type: db.Sequelize.STRING},
+const Produto = db.sequelize.define('produto', { 
+    id: {
+        type: db.Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
+    
+    titulo: {type: db.Sequelize.STRING,
+             allowNull: false},
+    valor: {type: db.Sequelize.STRING,
+            allowNull: false},
     descritivo:{type: db.Sequelize.STRING},
     estoque:{type: db.Sequelize.STRING},
 });

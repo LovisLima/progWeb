@@ -1,10 +1,12 @@
 
 var express = require("express");
 const res = require("express/lib/response");
+const Categoria = require("../model/categoria");
 var router = express.Router();
 var Cliente = require("../model/cliente");
+var Produto = require("../model/produto");
 
-
+//Cliente
 
 router.get("/cliente", function (req, res) {
   Cliente.findAll().then(function(obj){    
@@ -70,7 +72,8 @@ router.delete("/cliente/:id", function (req, res) {
 
 });
 
-var Produto = require("../model/produto");
+
+//Produto
 
 router.get("/produto", function (req, res) {
   Produto.findAll().then(function(obj){    
@@ -92,12 +95,12 @@ router.post("/produto", function (req, res) {
 
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
   Produto.create({
-      titulo: req.body.nome,
-      valor: req.body.email,
-      descritivo: req.body.senha,
+      titulo: req.body.titulo,
+      valor: req.body.valor,
+      descritivo: req.body.descritivo,
       estoque:req.body.estoque}).then(
           function(){
-            res.send("produto criado com sucesso !!!"+ req.body.nome);
+            res.send("produto criado com sucesso !!!"+ req.body.titulo);
           }).catch(
             function(erro){
               res.send("ocorreu um erro !!");
@@ -129,12 +132,80 @@ router.delete("/produto/:id", function (req, res) {
     {where: {id: req.params.id}}
     ).then(
         function(){
-          res.send("produto removido com sucesso !!!"+req.params.id);
+          res.send("produto removido com sucesso !!!" + req.params.id);
         }).catch(
           function(erro){
             res.send("ocorreu um erro !!");
           }
         );
+//Categoria
+ 
+        router.get("/categoria", function (req, res) {
+          Produto.findAll().then(function(obj){    
+              res.send(obj);
+            }).catch(function(err){
+              res.send('Oops! something went wrong, : ', err);
+            });
+          });
+        
+        router.get("/categoria/:id", function (req, res) {
+          Categoria.findAll({ where : {id: req.params.id }}).then(function(obj){    
+              res.send(obj);
+            }).catch(function(err){
+              res.send('Oops! something went wrong, : ', err);
+            });
+          });
+        
+        router.post("/categoria", function (req, res) {
+        
+          res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+          Categoria.create({
+              titulo: req.body.titulo,
+              }).then(
+                  function(){
+                    res.send("categoria criada com sucesso !!!" + req.body.titulo);
+                  }).catch(
+                    function(erro){
+                      res.send("ocorreu um erro !!");
+                    }
+                  );
+        });
+        
+        router.put("/categoria/:id", function (req, res) { 
+          Categoria.update({
+              titulo: req.body.nome,
+             },
+            {
+              where: {id: req.params.id}
+            }).then(
+                function(){
+                  res.send("categoria alterada com sucesso !!!" + req.body.nome);
+                }).catch(
+                  function(erro){
+                    res.send("ocorreu um erro !!");
+                  }
+                );
+        
+        });
+        
+        router.delete("/categoria/:id", function (req, res) {  
+          Categoria.destroy(    
+            {where: {id: req.params.id}}
+            ).then(
+                function(){
+                  res.send("categoria removida com sucesso !!!" + req.params.id);
+                }).catch(
+                  function(erro){
+                    res.send("ocorreu um erro !!");
+                  }
+                );
+          
+        
+          
+        
+        });
+
+  
 
 });
 module.exports = router;
