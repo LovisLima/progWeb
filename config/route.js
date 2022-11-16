@@ -1,10 +1,10 @@
-
 var express = require("express");
 const res = require("express/lib/response");
-const Categoria = require("../model/categoria");
 var router = express.Router();
 var Cliente = require("../model/cliente");
 var Produto = require("../model/produto");
+var Categoria = require("../model/categoria");
+var Fornecedor = require("../model/fornecedor")
 
 //Cliente
 
@@ -138,10 +138,10 @@ router.delete("/produto/:id", function (req, res) {
             res.send("ocorreu um erro !!");
           }
         );
+
 //Categoria
- 
         router.get("/categoria", function (req, res) {
-          Produto.findAll().then(function(obj){    
+          Categoria.findAll().then(function(obj){    
               res.send(obj);
             }).catch(function(err){
               res.send('Oops! something went wrong, : ', err);
@@ -200,11 +200,73 @@ router.delete("/produto/:id", function (req, res) {
                   }
                 );
           
+
+        });
         
-          
-        
+
+//Fornecedor
+        router.get("/fornecedor", function (req, res) {
+          Fornecedor.findAll().then(function(obj){    
+              res.send(obj);
+            }).catch(function(err){
+              res.send('Oops! something went wrong, : ', err);
+            });
+          });
+
+        router.get("/fornecedor/:id", function (req, res) {
+          Fornecedor.findAll({ where : {id: req.params.id }}).then(function(obj){    
+              res.send(obj);
+            }).catch(function(err){
+              res.send('Oops! something went wrong, : ', err);
+            });
+          });
+
+        router.post("/fornecedor", function (req, res) {
+
+          res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+          Fornecedor.create({
+              titulo: req.body.titulo,
+              }).then(
+                  function(){
+                    res.send("fornecedor criado com sucesso !!!" + req.body.titulo);
+                  }).catch(
+                    function(erro){
+                      res.send("ocorreu um erro !!");
+                    }
+                  );
         });
 
+        router.put("/fornecedor/:id", function (req, res) { 
+          Fornecedor.update({
+              titulo: req.body.nome,
+            },
+            {
+              where: {id: req.params.id}
+            }).then(
+                function(){
+                  res.send("fornecedor alterado com sucesso !!!" + req.body.nome);
+                }).catch(
+                  function(erro){
+                    res.send("ocorreu um erro !!");
+                  }
+                );
+
+        });
+
+        router.delete("/fornecedor/:id", function (req, res) {  
+          Fornecedor.destroy(    
+            {where: {id: req.params.id}}
+            ).then(
+                function(){
+                  res.send("fornecedor removido com sucesso !!!" + req.params.id);
+                }).catch(
+                  function(erro){
+                    res.send("ocorreu um erro !!");
+                  }
+                );
+          
+
+});
   
 
 });
