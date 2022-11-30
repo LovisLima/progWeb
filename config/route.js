@@ -26,15 +26,18 @@ router.get("/cliente/:id", function (req, res) {
 
 router.post("/cliente", function (req, res) {
 
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
   Cliente.create({
       nome: req.body.nome,
+      numeroTelefone:req.body.numeroTelefone,
+      password: req.body.password,
       email: req.body.email,
-      senha: req.body.senha}).then(
+      endereco: req.body.endereco,}).then(
           function(){
             res.send("cliente criado com sucesso !!!"+ req.body.nome);
           }).catch(
             function(erro){
+
               res.send("ocorreu um erro !!");
             }
           );
@@ -44,7 +47,7 @@ router.put("/cliente/:id", function (req, res) {
   Cliente.update({
     nome: req.body.nome,
     email: req.body.email,
-    senha: req.body.senha},
+    password: req.body.password},
     {
       where: {id: req.params.id}
     }).then(
@@ -91,9 +94,9 @@ router.get("/produto/:id", function (req, res) {
     });
   });
 
-router.post("/produto", function (req, res) {
+router.post("/produto", function (req, res) { 
 
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
   Produto.create({
       titulo: req.body.titulo,
       valor: req.body.valor,

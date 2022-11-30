@@ -10,14 +10,20 @@ const Cliente = db.sequelize.define('cliente', {
     
     nome: {type: db.Sequelize.STRING,
             allowNull: false},
+    numeroTelefone:{type:db.Sequelize.STRING},
+            //validate:{isNumeric: true,
+            //len: [8,9]},}
+    password: {type: db.Sequelize.STRING, //colocar hash
+            allowNull: false},
+    
     email: {type: db.Sequelize.STRING,
             allowNull: false,
             unique: true,
-            validate: {
-                isEmail: true              }
+            //validate: {
+                //isEmail: true }
         },
-    senha: {type: db.Sequelize.STRING, //colocar hash
-            allowNull: false}
+    endereco:{type:db.Sequelize.STRING},
+    
 });
 
 Cliente.sync();
