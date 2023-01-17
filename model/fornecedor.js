@@ -12,7 +12,7 @@ const Fornecedor = db.sequelize.define('fornecedor', {
     cnpj: {type: db.Sequelize.STRING,
             allowNull: false,
             validate: {
-                len: [16] }
+                len: [17] }
             },
 });
 
